@@ -1,13 +1,4 @@
 #!/usr/bin/env bash
-# Show all active IPv4 IPs, works in minimal Ubuntu and Docker
+# Displays all active IPv4 IPs on the machine using ifconfig
+ifconfig | awk '/inet / {print $2}' | sed 's/addr://'
 
-# If 'ip' exists, use it
-if command -v ip >/dev/null 2>&1; then
-    ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
-# Else, fallback to ifconfig
-elif command -v ifconfig >/dev/null 2>&1; then
-    ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
-# Else, fallback to /etc/hosts
-else
-    grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' /etc/hosts
-fi
