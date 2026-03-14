@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# listening ports 98 on localhost
+sudo nc -l localhost 98
