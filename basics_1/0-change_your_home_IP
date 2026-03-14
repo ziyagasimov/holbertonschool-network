@@ -1,0 +1,12 @@
+#!/bin/bash
+# Script to change localhost resolution and facebook.com resolution
+# localhost should resolve to 127.0.0.2
+# facebook.com should resolve to 8.8.8.8
+
+# Update /etc/hosts to change localhost from 127.0.0.1 to 127.0.0.2
+sed -i 's/^127\.0\.0\.1[[:space:]]*localhost$/127.0.0.2 localhost/' /etc/hosts
+
+# Add facebook.com entry to resolve to 8.8.8.8 if it doesn't already exist
+if ! grep -q "^8\.8\.8\.8[[:space:]]*facebook\.com$" /etc/hosts; then
+    echo "8.8.8.8	facebook.com" >> /etc/hosts
+fi
